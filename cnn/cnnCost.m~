@@ -285,10 +285,6 @@ else
 end
 
 % parfor filterNum = 1 : numFilters
-for filterNum = 1 : numFilters
-    e = errorsPooling(:, :, filterNum, :);
-    bc_grad(filterNum) = sum(e(:));
-end
 parfor filterNum = 1 : numFilters
     % for filterNum = 1 : numFilters
     for imageNum = 1 : numImages
@@ -320,6 +316,12 @@ for filterNum = 1 : numFilters
     %     Wc_grad(:, :, filterNum) = sum(Wc_gradFilter, 3) / numImages + regularization;
     Wc_grad(:, :, filterNum) = Wc_gradFilter;
 end
+
+for filterNum = 1 : numFilters
+    e = errorsConvolution(:, :, filterNum, :);
+    bc_grad(filterNum) = sum(e(:));
+end
+
 Wc_grad = Wc_grad + weightDecay * Wc;
 
 %% Unroll gradient into grad vector for minFunc
