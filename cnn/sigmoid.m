@@ -1,3 +1,2 @@
-function [ output ] = sigmoid( input )
-
-output = 1./(1+exp(-input));
+function h=sigmoid(a)
+  h=1./(1+exp(-a));
